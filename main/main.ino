@@ -19,11 +19,11 @@ void setup() {
 void loop() {
   for (int i = 0; i < sizeof(sensorInfo) / sizeof(sensorInfo[0]); i++) {
     String sensorName = sensorInfo[i][0];
-    int count = analogRead(i);
+    float count = analogRead(i);
     if (sensorName == "Thermistor") {
       sensorValues[i] = thermistor(count);
     } else if (sensorName == "PH") {
-      
+      sensorValues[i] = ph(count);
     }
   }
   printSensorValues();
@@ -35,7 +35,7 @@ void printSensorValues() {
   for (int i = 0; i < sizeof(sensorValues) / sizeof(sensorValues[0]); i++) {
     String sensorName = sensorInfo[i][0];
     String sensorUnits = sensorInfo[i][1];
-    int sensorValue = sensorValues[i];
+    float sensorValue = sensorValues[i];
     String period = ". ";
     String colon = ": ";
     output += (i + 1) + period + sensorName;
@@ -47,7 +47,7 @@ void printSensorValues() {
   Serial.println(output);
 }
 
-float thermistor(int raw) {
+float thermistor(float count) {
  /* Inputs ADC count from thermistor and outputs temperature in Celsius
   * requires: include <math.h>
   * Vernier Stainless Steel Temperature Probe TMP-BTA, Vernier Surface Temperature Probe STS-BTA
@@ -65,10 +65,18 @@ float thermistor(int raw) {
   * Resistance = ( Count*RawADC /(1024-Count))
   */
   float resistor = 15000;
-  long resistance = (resistor * raw / (1024 - raw));
+  long resistance = (resistor * count / (1024 - count));
   float logResistance = log(resistance);
   float tempInKelvin = 1 / (0.00102119 + (0.000222468 * logResistance) + (0.000000133342 * pow(logResistance, 3)));
   float tempInCelsius = tempInKelvin - 273.15;
   return tempInCelsius;
+}
+
+float ph(float count) {
+  float slope = -3.838;
+  float intercept = 13.720;
+  float voltage = count / 1023 * 5.0;
+  float ph = intercept + voltage * slope;
+  return ph;
 }
 
