@@ -12,7 +12,8 @@ enum class SensorType
 class Sensor
 {
 public:
-    Sensor(int pin, SensorType type);
+    Sensor(int pin, SensorType type, String name);
+    Sensor(int pin, String name);
     virtual float read();
     virtual String name();
 

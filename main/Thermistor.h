@@ -5,7 +5,7 @@
 class Thermistor : public Sensor
 {
 public:
-    Thermistor(int pin);
+    Thermistor(int pin, String name);
     float read() override;
 };
 

@@ -1,11 +1,8 @@
-#include "config.h"
-
-#if USE_PH_SENSOR // Skip compilation if this sensor is not used
 #include "pH_Sensor.h"
 
-pH_Sensor::pH_Sensor(int pin)
+pH_Sensor::pH_Sensor(int pin, String name)
     :
-    Sensor(pin, SensorType::pH)
+    Sensor(pin, SensorType::pH, name)
 {
 }
 
@@ -19,4 +16,3 @@ float pH_Sensor::read()
     return ph;
 }
 
-#endif //USE_PH_SENSOR

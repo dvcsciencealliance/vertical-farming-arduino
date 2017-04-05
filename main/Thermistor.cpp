@@ -1,11 +1,7 @@
-#include "config.h"
-
-#if USE_THERMISTOR // Skip compilation if this sensor is not used
-
 #include "Thermistor.h"
 
-Thermistor::Thermistor(int pin)
-    : Sensor(pin, SensorType::Thermistor)
+Thermistor::Thermistor(int pin, String name)
+    : Sensor(pin, SensorType::Thermistor, name)
 {
 }
 
@@ -36,5 +32,3 @@ float Thermistor::read()
     return tempInCelsius;
 }
 
-
-#endif //USE_THERMISTOR

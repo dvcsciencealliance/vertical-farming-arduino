@@ -1,12 +1,20 @@
 #include "Sensor.h"
 
-Sensor::Sensor(int pin, SensorType type)
+Sensor::Sensor(int pin, SensorType type, String name)
     :
     m_pin(pin),
     m_type(type),
-    m_name(GetSensorNameByType(type))
-    {
-    }
+    m_name(name)
+{
+}
+
+Sensor::Sensor(int pin, String name)
+    :
+    m_pin(pin),
+    m_type(SensorType::DefaultSensor),
+    m_name(name)
+{
+}
 
 float Sensor::read()
 {

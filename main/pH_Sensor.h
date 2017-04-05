@@ -5,7 +5,7 @@
 class pH_Sensor : public Sensor
 {
 public:
-    pH_Sensor(int pin);
+    pH_Sensor(int pin, String name);
     float read() override;
 };
 
