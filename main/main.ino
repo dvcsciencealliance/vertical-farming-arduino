@@ -24,9 +24,14 @@ void loop()
 void sendData()
 {
     // Send readings on all analog pins to RPI
+    String result;
     for (int i = 0; i < 6; ++i)
-        Serial.write((byte)analogRead(i));
+    {
+        result += String(analogRead(i)) + ' ';
+    }
+    Serial.println(result);     
 }
+
 
 
 
